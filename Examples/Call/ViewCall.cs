@@ -1,10 +1,11 @@
-﻿using MessageBird;
-using MessageBird.Exceptions;
 using System;
+using System.Linq;
+using MessageBird;
+using MessageBird.Exceptions;
 
-namespace Examples.CallFlow
-{
-    internal class ListCallFlow
+namespace Examples.Call
+{ 
+    internal class ViewCall
     {
         const string YOUR_ACCESS_KEY = "YOUR_ACCESS_KEY";
 
@@ -12,14 +13,15 @@ namespace Examples.CallFlow
         {
             var client = Client.CreateDefault(YOUR_ACCESS_KEY);
 
-            var callFlowList = client.ListCallFlows();
             try
             {
-                foreach (var item in callFlowList.Data)
-                {
-                    Console.WriteLine("The Voice Call Flow Id is: {0}", item.Id);
-                    Console.WriteLine("The Voice Call Flow Title is: {0}", item.Title);
-                }
+                var callResponse = client.ViewCall("CALL ID");
+                var call = callResponse.Data.FirstOrDefault();
+
+                Console.WriteLine("The Call Id is: {0}", call.Id);
+                Console.WriteLine("The Call source is: {0}", call.Source);
+                Console.WriteLine("The Call destination is: {0}", call.Destination);
+                Console.WriteLine("The Call ended at: {0}", call.EndedAt);
             }
             catch (ErrorException e)
             {

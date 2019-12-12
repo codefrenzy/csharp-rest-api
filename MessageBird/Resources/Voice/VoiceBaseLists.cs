@@ -1,11 +1,11 @@
-﻿using System.Text;
+using System.Text;
 using MessageBird.Objects.Voice;
 
 namespace MessageBird.Resources.Voice
 {
-    public class CallFlowsBaseLists : CallFlowsResource
+    public class VoiceBaseLists<T> : VoiceBaseResource<T>
     {
-        public CallFlowsBaseLists(string name, CallFlowList attachedObject)
+        public VoiceBaseLists(string name, VoiceBaseList<T> attachedObject)
             : base(name, attachedObject)
         {
         }
@@ -14,7 +14,7 @@ namespace MessageBird.Resources.Voice
         {
             get
             {
-                var baseList = (CallFlowList)Object;
+                var baseList = (VoiceBaseList<T>)Object;
 
                 var builder = new StringBuilder();
 
@@ -31,4 +31,4 @@ namespace MessageBird.Resources.Voice
             }
         }
     }
-}
+} 

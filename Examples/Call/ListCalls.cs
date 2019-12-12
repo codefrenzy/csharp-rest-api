@@ -1,10 +1,10 @@
-﻿using MessageBird;
+using MessageBird;
 using MessageBird.Exceptions;
 using System;
 
-namespace Examples.CallFlow
+namespace Examples.Call
 {
-    internal class ListCallFlow
+    internal class ListCalls
     {
         const string YOUR_ACCESS_KEY = "YOUR_ACCESS_KEY";
 
@@ -12,13 +12,15 @@ namespace Examples.CallFlow
         {
             var client = Client.CreateDefault(YOUR_ACCESS_KEY);
 
-            var callFlowList = client.ListCallFlows();
+            var calls = client.ListCalls();
             try
             {
-                foreach (var item in callFlowList.Data)
+                foreach (var item in calls.Data)
                 {
-                    Console.WriteLine("The Voice Call Flow Id is: {0}", item.Id);
-                    Console.WriteLine("The Voice Call Flow Title is: {0}", item.Title);
+                    Console.WriteLine("The Call Id is: {0}", item.Id);
+                    Console.WriteLine("The Call source is: {0}", item.Source);
+                    Console.WriteLine("The Call destination is: {0}", item.Destination);
+                    Console.WriteLine("The Call ended at: {0}", item.EndedAt);
                 }
             }
             catch (ErrorException e)
@@ -37,8 +39,6 @@ namespace Examples.CallFlow
                     Console.WriteLine(e.Reason);
                 }
             }
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
         }
     }
 }
